@@ -9,9 +9,7 @@ import {
   SET_LOADING,
   GET_REPOS,
   CLEAR_USERS,
-  GET_USER,
-  SET_ALERT,
-  REMOVE_ALERT
+  GET_USER
 } from '../types';
 
 const clientID = process.env.REACT_APP_GITHUB_CLIENT_ID;
@@ -73,14 +71,6 @@ const GithubState = props => {
   // set loading
   const setLoading = () => dispatch({ type: SET_LOADING });
 
-  //set alert
-  const setAlert_ = (message, type) => {
-    dispatch({ type: SET_ALERT, payload: { message, type } });
-    // setAlert({ message, type });
-    const timeout = 5000;
-    setTimeout(() => dispatch({ type: REMOVE_ALERT }), timeout);
-  };
-
   return (
     <githubContext.Provider
       value={{
@@ -88,12 +78,10 @@ const GithubState = props => {
         user: state.user,
         loading: state.loading,
         repos: state.repos,
-        alert: state.alert,
         searchUsers,
         getUser,
         clearUser,
-        getUserRepos,
-        setAlert_
+        getUserRepos
       }}
     >
       {props.children}

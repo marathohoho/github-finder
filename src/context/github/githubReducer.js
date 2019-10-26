@@ -4,9 +4,7 @@ import {
   SET_LOADING,
   GET_REPOS,
   CLEAR_USERS,
-  GET_USER,
-  SET_ALERT,
-  REMOVE_ALERT
+  GET_USER
 } from '../types';
 
 export default (state, action) => {
@@ -28,12 +26,6 @@ export default (state, action) => {
 
     case GET_USER:
       return { ...state, user: action.payload, loading: false };
-
-    case SET_ALERT:
-      return { ...state, alert: action.payload };
-
-    case REMOVE_ALERT:
-      return { ...state, alert: null };
 
     default:
       return state;
