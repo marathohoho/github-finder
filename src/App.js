@@ -1,26 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Fragment } from 'react';
+import Navbar from './components/layout/Navbar';
+import Users from './components/users/Users';
+import Search from './components/users/Search';
+import Alert from './components/layout/Alert';
+import About from './components/pages/About';
+import User from './components/users/User';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
+import GithubState from './context/github/GithubState';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <GithubState>
+      <Router>
+        <div>
+          <nav className="navbar bg-primary">
+            <Navbar title=" Github Finder" icon="fab fa-github" />
+          </nav>
+          <div className="container">
+            <Alert />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={props => {
+                  return (
+                    <Fragment>
+                      <Search />
+                      <Users />
+                    </Fragment>
+                  );
+                }}
+              />
+              <Route exact path="/about" component={About} />
+              <Route
+                exact
+                path="/user/:login"
+                render={props => <User {...props} />}
+              />
+            </Switch>
+          </div>
+        </div>
+      </Router>
+    </GithubState>
   );
-}
+};
 
 export default App;
